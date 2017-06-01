@@ -18,11 +18,21 @@ class Command : public Word {
     char get_connector(){
        return connector; 
     }
+    void set_exec(std::string s){
+        exec = s;
+    }
+    
     std::string get_exec();
+    
     void print(); // prints contents of args
+    
     Command();
-    Command(std::string);
-    virtual void run();
+    
+    Command(std::string s);
+    
+    void stringToChar(char* &, std::string);// converts the string passed in to the char*
+    
+    virtual bool run();
 };
 
 #endif

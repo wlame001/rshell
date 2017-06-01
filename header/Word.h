@@ -27,10 +27,13 @@ class Word : public Base {
             return data;
         }
         
+        void set_data(std::string s){
+            this->data = s;
+        }
         void print(){
             std::cout << data;
         }
-        virtual void run() = 0;
+        virtual bool run() = 0;
 };
 
 #endif

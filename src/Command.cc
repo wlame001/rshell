@@ -5,13 +5,14 @@
 using namespace std;
 
 void Command::print(){
-    for(unsigned i = 0; i < args.size();i++)
+    for(unsigned i = 0; i < args.size(); i++)
         cout << "args[" << i << "]: " << args.at(i) << endl;
 }
 
 string Command::get_exec(){
-    return exec;
+    return this->exec;
 }
+
 Command::Command(){}
 Command::Command(std::string s) : Word(s){
     stringstream ss(s);
@@ -19,18 +20,24 @@ Command::Command(std::string s) : Word(s){
     run();
 }
 
+void Command::stringToChar(char* &c, string s ){
+    unsigned i;
+    for( i = 0; i < s.size(); i++)
+        c[i] = s.at(i);
+    i++;    
+    c[i] = '\0'; 
+}
 
-void Command::run(){
-    //break up command into smaller commands
+//break up command into smaller commands
+bool Command::run(){
     typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
     boost::char_separator<char> sep(" ");
     tokenizer tokens(this->data, sep);
     for (tokenizer::iterator tok = tokens.begin(); tok != tokens.end(); ++tok){
         char *k = new char[tok->size() + 1];
-        for(unsigned i = 0; i < tok->size(); i++)
-           k[i] = tok->at(i);
-        k[tok->size()] = '\0';
+        stringToChar(k, *tok);
         args.push_back(k);
     }
     args.push_back('\0');
+    return true;
 }

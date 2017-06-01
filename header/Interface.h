@@ -9,6 +9,12 @@ class Interface : public Command {
     
     protected :
     std::vector <Command> cmd;
+    
+    /*
+    helper function for the connector function
+    */
+    void conHelper(char , int &, unsigned &);
+    
     /*
     Helper function of split, iterates through data and sets each Command's 
     connector field corresponding to the correct connector used
@@ -16,7 +22,6 @@ class Interface : public Command {
     & is an error while && is correct, etc..
     */
     void con();
-    
     
     public:
     /*
@@ -30,9 +35,23 @@ class Interface : public Command {
     */
     void split();
     
+    /*
+    calls execvp on index i of the cmd vector, doesnt call execvp if previous 
+    with connector combination means the current command shouldn't be executed
+    */
+    void execute(const int &, const int &);
+    
+    void callFork(int &);
+    
+    void parentProcess(const int *, pid_t &, pid_t &, int &, int &);
+    
     void exit_fn(int i){
         exit(i);
     }
+    
+    int call_test(int ); // Creates a Test Objec
+    
+    Interface(){};
     
     Interface(std::string s);
     
@@ -42,7 +61,7 @@ class Interface : public Command {
     taken in was executed. Then calls the desired functions through execvp 
     and returns
     */
-    virtual void run();
+    virtual bool run();
     
 };
 

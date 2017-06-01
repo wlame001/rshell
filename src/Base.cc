@@ -3,7 +3,7 @@
 
 class Base {
     public:
-        virtual void run() = 0;
+        virtual bool run() = 0;
         virtual void print() = 0;
 };
 
